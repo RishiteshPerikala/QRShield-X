@@ -1,0 +1,93 @@
+# ==============================
+# Python
+# ==============================
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ==============================
+# Virtual Environment
+# ==============================
+
+.venv/
+venv/
+env/
+
+# ==============================
+# Environment / Secrets
+# ==============================
+
+.env
+.env.*
+!.env.example
+
+# ==============================
+# Testing / Coverage
+# ==============================
+
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# ==============================
+# Type Checking / Linters
+# ==============================
+
+.mypy_cache/
+.ruff_cache/
+
+# ==============================
+# Jupyter
+# ==============================
+
+.ipynb_checkpoints/
+
+# ==============================
+# OS
+# ==============================
+
+.DS_Store
+Thumbs.db
+
+# ==============================
+# IDE
+# ==============================
+
+.vscode/
+.idea/
+
+# ==============================
+# QRShield-X Generated Data
+# ==============================
+
+data/processed/*
+data/external/*
+
+# Keep directory structure
+!data/processed/.gitkeep
+!data/external/.gitkeep
+
+# ==============================
+# Trained Models / Artifacts
+# ==============================
+
+models/*
+!models/.gitkeep
+
+# ==============================
+# Experiment Outputs
+# ==============================
+
+experiments/results/
+experiments/runs/
+experiments/logs/
+
+# ==============================
+# Temporary Files
+# ==============================
+
+*.log
+*.tmp
+*.temp
