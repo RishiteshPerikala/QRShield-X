@@ -91,3 +91,9 @@ experiments/logs/
 *.log
 *.tmp
 *.temp
+
+# ==============================
+# Python Packaging
+# ==============================
+
+*.egg-info/
