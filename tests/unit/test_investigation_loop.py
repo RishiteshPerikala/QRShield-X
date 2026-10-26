@@ -1,3 +1,4 @@
+import pytest
 from qrshield_x.controller.action_evaluation import ActionEvaluator
 from qrshield_x.controller.action_selection import ActionSelector
 from qrshield_x.controller.candidate_generation import CandidateGenerator
@@ -148,3 +149,23 @@ def test_investigation_records_are_preserved() -> None:
 
     assert len(records) == 1
     assert records[0] == result.investigation_record
+
+
+def test_investigation_loop_executor_failure_preserves_state() -> None:
+    loop, state_manager = build_loop()
+
+    def failing_executor(
+        action: InvestigationAction,
+    ) -> InvestigationResult:
+        raise RuntimeError("Executor failed.")
+
+    loop._executor = failing_executor
+
+    with pytest.raises(RuntimeError, match="Executor failed"):
+        loop.run_once(RelationshipID.R1)
+
+    state = state_manager.get_state()
+
+    assert state.investigations_used == 0
+    assert state.budget_remaining == 10.0
+    assert loop.get_investigation_records() == []

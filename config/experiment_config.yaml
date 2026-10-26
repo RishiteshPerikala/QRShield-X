@@ -1,0 +1,24 @@
+dataset:
+  data_path: "data/raw/quishing/extracted/qr_codes_29.pickle"
+  labels_path: "data/raw/quishing/extracted/qr_codes_29_labels.pickle"
+
+split:
+  train_ratio: 0.70
+  validation_ratio: 0.15
+  test_ratio: 0.15
+  random_seed: 42
+
+models:
+  logistic_regression:
+    enabled: true
+    max_iterations: 1000
+    c: 1.0
+
+  random_forest:
+    enabled: true
+    n_estimators: 100
+    max_depth: null
+
+output:
+  models_dir: "models/baselines"
+  results_dir: "experiments/results"

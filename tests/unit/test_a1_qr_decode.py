@@ -5,6 +5,8 @@ from qrcode import QRCode
 
 from qrshield_x.investigations.a1_qr_decode import A1QRDecoder
 
+from unittest.mock import patch
+
 
 def create_qr_image(path: Path, data: str) -> None:
     """Create a QR image for testing."""
@@ -56,3 +58,20 @@ def test_non_qr_image_returns_decode_failure(tmp_path: Path) -> None:
     assert result.decoded_urls == ()
     assert result.decoder_count == 0
     assert result.error == "No QR code could be decoded."
+
+def test_unreadable_image_returns_failure(tmp_path: Path) -> None:
+    image_path = tmp_path / "unreadable.png"
+    image_path.write_text("not a valid image", encoding="utf-8")
+
+    decoder = A1QRDecoder()
+
+    with patch(
+        "qrshield_x.investigations.a1_qr_decode.cv2.imread",
+        return_value=None,
+    ):
+        result = decoder.decode(image_path)
+
+    assert result.success is False
+    assert result.decoded_urls == ()
+    assert result.decoder_count == 0
+    assert result.error == f"Unable to read image: {image_path}"
